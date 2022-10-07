@@ -6,6 +6,7 @@
 #pragma endregion
 
 #pragma region include project
+#include "../../../Utility/Structs.h"
 #include "PlayerStatsComponent.generated.h"
 #pragma endregion
 
@@ -82,6 +83,12 @@ public:
 	/// </summary>
 	/// <returns>player fitness value from -10 to +10</returns>
 	inline char GetFitness() { return m_fitness; }
+
+	/// <summary>
+	/// get player job experiences
+	/// </summary>
+	/// <returns>array of all player job experiences</returns>
+	inline TArray<FJobExperience> GetJobExperiences() { return m_jobExperiences; }
 #pragma endregion
 
 protected:
@@ -113,5 +120,12 @@ private:
 	/// player fitness value
 	/// </summary>
 	float m_fitness = 0.0f;
+#pragma endregion
+
+#pragma region private variable
+	/// <summary>
+	/// player job experiences
+	/// </summary>
+	TArray<FJobExperience> m_jobExperiences;
 #pragma endregion
 };

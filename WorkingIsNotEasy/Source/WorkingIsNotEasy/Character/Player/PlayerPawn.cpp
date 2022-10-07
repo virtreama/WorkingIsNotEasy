@@ -1,5 +1,6 @@
 #pragma region include project
 #include "PlayerPawn.h"
+#include "Stats/PlayerStatsComponent.h"
 #pragma endregion
 
 #pragma region include engine
@@ -66,6 +67,9 @@ APlayerPawn::APlayerPawn()
 	// create right waist bag component and attach to root
 	RightWaistBag = CreateDefaultSubobject<USceneComponent>(TEXT("RightWaistBag"));
 	RightWaistBag->SetupAttachment(pRoot);
+
+	// create player stats component
+	Stats = CreateDefaultSubobject<UPlayerStatsComponent>(TEXT("Stats"));
 }
 #pragma endregion
 

@@ -13,6 +13,7 @@
 class UCameraComponent;
 class UCapsuleComponent;
 class UMotionControllerComponent;
+class UPlayerStatsComponent;
 #pragma endregion
 
 UCLASS()
@@ -111,6 +112,12 @@ public:
 	/// right waist bag location component
 	/// </summary>
 	USceneComponent* RightWaistBag = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
+	/// player stats component
+	/// </summary>
+	UPlayerStatsComponent* Stats = nullptr;
 #pragma endregion
 
 protected:

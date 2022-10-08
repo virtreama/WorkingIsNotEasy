@@ -14,6 +14,7 @@ class UCameraComponent;
 class UCapsuleComponent;
 class UMotionControllerComponent;
 class UPlayerStatsComponent;
+class UPlayerInventoryComponent;
 #pragma endregion
 
 UCLASS()
@@ -118,6 +119,12 @@ public:
 	/// player stats component
 	/// </summary>
 	UPlayerStatsComponent* Stats = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
+	/// player inventory component
+	/// </summary>
+	UPlayerInventoryComponent* Inventory = nullptr;
 #pragma endregion
 
 protected:

@@ -18,6 +18,7 @@ class WORKINGISNOTEASY_API UGameInstanceMain : public UGameInstance
 	GENERATED_BODY()
 
 public:
+#pragma region public UPROPERTY
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player inventory")
 	/// <summary>
 	/// array of tuple with name and subclass of every apartment object
@@ -29,4 +30,5 @@ public:
 	/// array of tuple with name and subclass of every inventory object
 	/// </summary>
 	TArray<TSubclassOf<AActor>> InventoryObjects;
+#pragma endregion
 };

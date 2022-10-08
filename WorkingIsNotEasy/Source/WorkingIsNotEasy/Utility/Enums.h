@@ -4,6 +4,17 @@
 #include "CoreMinimal.h"
 #pragma endregion
 
+#pragma region player
+UENUM(BlueprintType)
+/// <summary>
+/// apartment
+/// </summary>
+enum class EApartment : uint8
+{
+	HOMELESS = 0		UMETA(DisplayName = "Homeless")
+};
+#pragma endregion
+
 #pragma region character
 UENUM(BlueprintType)
 /// <summary>

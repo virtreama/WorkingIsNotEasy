@@ -1,6 +1,7 @@
 #pragma region include project
 #include "PlayerPawn.h"
 #include "Stats/PlayerStatsComponent.h"
+#include "Inventory/PlayerInventoryComponent.h"
 #pragma endregion
 
 #pragma region include engine
@@ -70,6 +71,9 @@ APlayerPawn::APlayerPawn()
 
 	// create player stats component
 	Stats = CreateDefaultSubobject<UPlayerStatsComponent>(TEXT("Stats"));
+
+	// create player inventory component
+	Inventory = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("Inventory"));
 }
 #pragma endregion
 

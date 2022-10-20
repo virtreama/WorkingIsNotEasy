@@ -33,14 +33,6 @@ public:
 	APlayerPawn();
 #pragma endregion
 
-#pragma region public override function
-	/// <summary>
-	/// update every frame
-	/// </summary>
-	/// <param name="DeltaTime">time since last frame</param>
-	virtual void Tick(float DeltaTime) override;
-#pragma endregion
-
 #pragma region public UPROPERTY
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
 	/// <summary>
@@ -125,13 +117,5 @@ public:
 	/// player inventory component
 	/// </summary>
 	UPlayerInventoryComponent* Inventory = nullptr;
-#pragma endregion
-
-protected:
-#pragma region protected override function
-	/// <summary>
-	/// called at begin play
-	/// </summary>
-	virtual void BeginPlay() override;
 #pragma endregion
 };

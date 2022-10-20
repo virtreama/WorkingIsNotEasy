@@ -76,21 +76,3 @@ APlayerPawn::APlayerPawn()
 	Inventory = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("Inventory"));
 }
 #pragma endregion
-
-#pragma region public override function
-// update every frame
-void APlayerPawn::Tick(float DeltaTime)
-{
-	// parent update every frame
-	Super::Tick(DeltaTime);
-}
-#pragma endregion
-
-#pragma region protected override function
-// called at begin play
-void APlayerPawn::BeginPlay()
-{
-	// parent begin play
-	Super::BeginPlay();
-}
-#pragma endregion

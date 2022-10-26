@@ -48,12 +48,12 @@ private:
 	/// <summary>
 	/// array of tuple with id and transform of all apartment objects owned by the player
 	/// </summary>
-	TArray<TTuple<UINT16, FTransform>> m_apartmentObjects;
+	TArray<TTuple<int, FTransform>> m_apartmentObjects;
 
 	/// <summary>
 	/// array of tuple with id and amount of all inventory objects owned by the player
 	/// </summary>
-	TArray<TTuple<UINT16, UINT16>> m_inventoryObjects;
+	TArray<TTuple<int, int>> m_inventoryObjects;
 #pragma endregion
 
 #pragma region private pointer

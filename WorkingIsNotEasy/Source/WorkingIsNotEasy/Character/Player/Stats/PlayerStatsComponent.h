@@ -14,6 +14,10 @@
 using namespace std;
 #pragma endregion
 
+#pragma region forward decleration
+class APlayerStatsDependent;
+#pragma endregion
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 /// <summary>
 /// player stats actor component class
@@ -22,7 +26,7 @@ class WORKINGISNOTEASY_API UPlayerStatsComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 #pragma region constructor
 	/// <summary>
 	/// constructor
@@ -64,7 +68,7 @@ public:
 	/// get player name
 	/// </summary>
 	/// <returns>player name</returns>
-	inline string GetName() { return m_name; }
+	inline string GetPlayerName() { return m_name; }
 
 	/// <summary>
 	/// get player money
@@ -123,6 +127,11 @@ private:
 #pragma endregion
 
 #pragma region private variable
+	/// <summary>
+	/// actors that are dependent on the player stats
+	/// </summary>
+	TArray<APlayerStatsDependent*> m_playerStatsDependentActors;
+
 	/// <summary>
 	/// player job experiences
 	/// </summary>

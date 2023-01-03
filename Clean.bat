@@ -8,4 +8,5 @@ rmdir Intermediate /q /s
 rmdir Platforms /q /s
 rmdir Saved /q /s
 rmdir Script /q /s
+del /q /s /f .vsconfig
 del /q /s /f WorkingIsNotEasy.sln

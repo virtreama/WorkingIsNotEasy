@@ -11,6 +11,7 @@
 
 #pragma region forward decleration
 class UGameInstanceMain;
+class APlayerPawn;
 #pragma endregion
 
 UCLASS()
@@ -79,6 +80,12 @@ public:
 	/// </summary>
 	/// <returns>current second</returns>
 	inline uint8_t GetCurrentSecond() { return m_second; }
+
+	/// <summary>
+	/// set player
+	/// </summary>
+	/// <param name="_pPlayer">player reference</param>
+	inline void SetPlayer(APlayerPawn* _pPlayer) { m_pPlayer = _pPlayer; }
 #pragma endregion
 
 protected:
@@ -132,6 +139,11 @@ private:
 	/// main game instance reference
 	/// </summary>
 	UGameInstanceMain* m_pGameInstanceMain = nullptr;
+
+	/// <summary>
+	/// player reference
+	/// </summary>
+	APlayerPawn* m_pPlayer = nullptr;
 #pragma endregion
 
 #pragma region private function

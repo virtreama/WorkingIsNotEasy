@@ -10,6 +10,7 @@
 #pragma endregion
 
 #pragma region forward decleration
+class AGameModeMain;
 class UCameraComponent;
 class UCapsuleComponent;
 class UTextRenderComponent;
@@ -72,6 +73,18 @@ public:
 	/// arms visual skeletal mesh component
 	/// </summary>
 	USkeletalMeshComponent* Arms = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
+	/// watch static mesh component
+	/// </summary>
+	UStaticMeshComponent* Watch = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
+	/// watch text component
+	/// </summary>
+	UTextRenderComponent* WatchText = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
 	/// <summary>
@@ -160,6 +173,11 @@ public:
 	/// update credit card informations
 	/// </summary>
 	void UpdateCreditCard();
+
+	/// <summary>
+	/// update watch text
+	/// </summary>
+	void UpdateWatch();
 #pragma endregion
 
 protected:
@@ -188,6 +206,13 @@ private:
 	/// temporary vector for calculation etc that it is not allocated every frame
 	/// </summary>
 	FVector m_tempVector = FVector();
+#pragma endregion
+
+#pragma region private pointer
+	/// <summary>
+	/// main game mode reference
+	/// </summary>
+	AGameModeMain* m_pGameModeMain = nullptr;
 #pragma endregion
 
 #pragma region private function

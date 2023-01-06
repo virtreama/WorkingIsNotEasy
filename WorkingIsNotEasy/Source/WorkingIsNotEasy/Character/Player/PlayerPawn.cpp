@@ -1,5 +1,6 @@
 #pragma region include project
 #include "PlayerPawn.h"
+#include "../../Game/Mode/Main/GameModeMain.h"
 #include "Stats/PlayerStatsComponent.h"
 #include "Inventory/PlayerInventoryComponent.h"
 #pragma endregion
@@ -9,6 +10,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "MotionControllerComponent.h"
+#include "Kismet/GameplayStatics.h"
 #pragma endregion
 
 #pragma region constructor
@@ -41,6 +43,14 @@ APlayerPawn::APlayerPawn()
 	// create arms skeletal mesh component and attach to IK
 	Arms = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Arms"));
 	Arms->SetupAttachment(IK);
+
+	// create watch static mesh component and attach to arms
+	Watch = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Watch"));
+	Watch->SetupAttachment(Arms);
+
+	// create watch text render component and attach to watch
+	WatchText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("WatchText"));
+	WatchText->SetupAttachment(Watch);
 
 	// create left hand skeletal mesh component and attach to IK
 	LeftHand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LeftHand"));
@@ -120,6 +130,81 @@ void APlayerPawn::UpdateCreditCard()
 	CreditCardName->SetText(FText::FromString(("Card Holder:\n" + Stats->GetPlayerName()).c_str()));
 	CreditCardMoney->SetText(FText::FromString((FString::FromInt(Stats->GetMoney()) + "$")));
 }
+
+// update watch text
+void APlayerPawn::UpdateWatch()
+{
+	// if hour is more than 12
+	if (m_pGameModeMain->GetCurrentHour() > 12)
+	{
+		// if hour is 12 it is am
+		if (m_pGameModeMain->GetCurrentHour() == 12)
+		{
+			// set watch text
+			WatchText->SetText(FText::FromString(
+				(m_pGameModeMain->GetCurrentHour() - 12 < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentHour() - 12) +
+				":" + (m_pGameModeMain->GetCurrentMinute() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentMinute()) +
+				"\nam"
+			));
+		}
+
+		// if hour is lower than 12 it is pm
+		else
+		{
+			// set watch text
+			WatchText->SetText(FText::FromString(
+				(m_pGameModeMain->GetCurrentHour() - 12 < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentHour() - 12) +
+				":" + (m_pGameModeMain->GetCurrentMinute() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentMinute()) +
+				"\npm"
+			));
+		}
+	}
+
+	// if hour is under 12
+	else
+	{
+		// if hour is 12 it is pm
+		if (m_pGameModeMain->GetCurrentHour() == 12)
+		{
+			// set watch text
+			WatchText->SetText(FText::FromString(
+				(m_pGameModeMain->GetCurrentHour() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentHour()) +
+				":" + (m_pGameModeMain->GetCurrentMinute() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentMinute()) +
+				"\npm"
+			));
+		}
+
+		// if hour is 0 it is am but the hour is 12
+		else if (m_pGameModeMain->GetCurrentHour() == 0)
+		{
+			// set watch text
+			WatchText->SetText(FText::FromString(FString::FromInt(12) +
+				":" + (m_pGameModeMain->GetCurrentMinute() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentMinute()) +
+				"\nam"
+			));
+		}
+
+		// if hour is between 1 and 11 it is am
+		else
+		{
+			// set watch text
+			WatchText->SetText(FText::FromString(
+				(m_pGameModeMain->GetCurrentHour() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentHour()) +
+				":" + (m_pGameModeMain->GetCurrentMinute() < 10 ? "0" : "") +
+				FString::FromInt(m_pGameModeMain->GetCurrentMinute()) +
+				"\nam"
+			));
+		}
+	}
+}
 #pragma endregion
 
 #pragma region protected override function
@@ -129,10 +214,17 @@ void APlayerPawn::BeginPlay()
 	// parent begin play
 	Super::BeginPlay();
 
+	// get main game mode reference and set player
+	m_pGameModeMain = (AGameModeMain*)(UGameplayStatics::GetGameMode(GetWorld()));
+	m_pGameModeMain->SetPlayer(this);
+
 	// hide credit card and texts
 	CreditCard->SetVisibility(false);
 	CreditCardName->SetVisibility(false);
 	CreditCardMoney->SetVisibility(false);
+
+	// set watch text
+	WatchText->SetText(FText::FromString("00:00:00\nam"));
 }
 #pragma endregion
 

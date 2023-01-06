@@ -1,6 +1,7 @@
 #pragma region include project
 #include "GameModeMain.h"
 #include "../../Instance/GameInstanceMain.h"
+#include "../../../Character/Player/PlayerPawn.h"
 #pragma endregion
 
 #pragma region include engine
@@ -84,6 +85,9 @@ void AGameModeMain::UpdateTime()
 
 		// increase current minute by 1
 		m_minute++;
+
+		// update player watch
+		m_pPlayer->UpdateWatch();
 
 		// if current minute is 60
 		if (m_minute == 60)

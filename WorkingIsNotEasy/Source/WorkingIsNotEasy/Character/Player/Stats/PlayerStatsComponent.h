@@ -16,6 +16,7 @@ using namespace std;
 
 #pragma region forward decleration
 class APlayerStatsDependent;
+class APlayerPawn;
 #pragma endregion
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -93,6 +94,12 @@ public:
 	/// </summary>
 	/// <returns>array of all player job experiences</returns>
 	inline TArray<FJobExperience> GetJobExperiences() { return m_jobExperiences; }
+
+	/// <summary>
+	/// set player
+	/// </summary>
+	/// <param name="_pPlayer">player reference</param>
+	inline void SetPlayer(APlayerPawn* _pPlayer) { m_player = _pPlayer; }
 #pragma endregion
 
 protected:
@@ -136,5 +143,12 @@ private:
 	/// player job experiences
 	/// </summary>
 	TArray<FJobExperience> m_jobExperiences;
+#pragma endregion
+
+#pragma region private pointer
+	/// <summary>
+	/// player reference
+	/// </summary>
+	APlayerPawn* m_player = nullptr;
 #pragma endregion
 };

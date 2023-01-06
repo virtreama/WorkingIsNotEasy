@@ -1,6 +1,7 @@
 #pragma region include project
 #include "PlayerStatsComponent.h"
 #include "../../../Actor/Shared/PlayerStatsDependent/PlayerStatsDependent.h"
+#include "../PlayerPawn.h"
 #pragma endregion
 
 #pragma region include engine
@@ -47,8 +48,9 @@ void UPlayerStatsComponent::BeginPlay()
 
 	// update all stats from player stats dependent actors
 	for (int i = 0; i < m_playerStatsDependentActors.Num(); i++)
-	{
 		m_playerStatsDependentActors[i]->UpdateStats(this);
-	}
+	
+	// update player credit card
+	m_player->UpdateCreditCard();
 }
 #pragma endregion

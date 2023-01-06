@@ -12,6 +12,7 @@
 #pragma region forward decleration
 class UCameraComponent;
 class UCapsuleComponent;
+class UTextRenderComponent;
 class UMotionControllerComponent;
 class UPlayerStatsComponent;
 class UPlayerInventoryComponent;
@@ -31,6 +32,14 @@ public:
 	/// constructor
 	/// </summary>
 	APlayerPawn();
+#pragma endregion
+
+#pragma region public override function
+	/// <summary>
+	/// update every frame
+	/// </summary>
+	/// <param name="DeltaSeconds">time since last frame</param>
+	virtual void Tick(float DeltaSeconds) override;
 #pragma endregion
 
 #pragma region public UPROPERTY
@@ -78,6 +87,24 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
 	/// <summary>
+	/// credit card static mesh component
+	/// </summary>
+	UStaticMeshComponent* CreditCard = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
+	/// credit card name text render component
+	/// </summary>
+	UTextRenderComponent* CreditCardName = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
+	/// credit card money text render component
+	/// </summary>
+	UTextRenderComponent* CreditCardMoney = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
+	/// <summary>
 	/// body visual skeletal mesh component
 	/// </summary>
 	USkeletalMeshComponent* Body = nullptr;
@@ -117,5 +144,61 @@ public:
 	/// player inventory component
 	/// </summary>
 	UPlayerInventoryComponent* Inventory = nullptr;
+#pragma endregion
+
+#pragma region public UFUNCTION
+	UFUNCTION(BlueprintCallable, Category = "Player Pawn")
+	/// <summary>
+	/// set right and left trigger values
+	/// </summary>
+	/// <param name="RightLeftAxisValues">right (x) and left (y) trigger axis values</param>
+	void SetTriggerValues(FVector2D RightLeftAxisValues);
+#pragma endregion
+
+#pragma region public function
+	/// <summary>
+	/// update credit card informations
+	/// </summary>
+	void UpdateCreditCard();
+#pragma endregion
+
+protected:
+#pragma region protected override function
+	/// <summary>
+	/// called at begin play
+	/// </summary>
+	virtual void BeginPlay() override;
+#pragma endregion
+
+private:
+#pragma region private primitive variable
+	/// <summary>
+	/// right hand trigger axis value
+	/// </summary>
+	float m_rightHandTrigger = 0.0f;
+
+	/// <summary>
+	/// left hand trigger axis value
+	/// </summary>
+	float m_leftHandTrigger = 0.0f;
+#pragma endregion
+
+#pragma region private variable
+	/// <summary>
+	/// temporary vector for calculation etc that it is not allocated every frame
+	/// </summary>
+	FVector m_tempVector = FVector();
+#pragma endregion
+
+#pragma region private function
+	/// <summary>
+	/// set location of right and left waist bag
+	/// </summary>
+	void SetLocationWaistBags();
+
+	/// <summary>
+	/// check distance of right and left hand to right and left waist bag
+	/// </summary>
+	void CheckDistanceHandsToWaistBags();
 #pragma endregion
 };

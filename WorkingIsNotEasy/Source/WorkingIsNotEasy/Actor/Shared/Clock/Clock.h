@@ -5,15 +5,15 @@
 #pragma endregion
 
 #pragma region include project
-#include "../../Shared/PlayerStatsDependent/PlayerStatsDependent.h"
-#include "Resume.generated.h"
+#include "../GameModeTimeDependent/GameModeTimeDependent.h"
+#include "Clock.generated.h"
 #pragma endregion
 
 UCLASS()
 /// <summary>
-/// resume class to visualize the resume of the player
+/// clock class to visualize the clock
 /// </summary>
-class WORKINGISNOTEASY_API AResume : public APlayerStatsDependent
+class WORKINGISNOTEASY_API AClock : public AGameModeTimeDependent
 {
 	GENERATED_BODY()
 	
@@ -22,30 +22,36 @@ public:
 	/// <summary>
 	/// constructor
 	/// </summary>
-	AResume();
+	AClock();
 #pragma endregion
 
 #pragma region public UPROPERTY
-	UPROPERTY(BlueprintReadOnly, Category = "Player Resume")
+	UPROPERTY(BlueprintReadOnly, Category = "Clock")
 	/// <summary>
-	/// name of the player
+	/// current hour
 	/// </summary>
-	FString PlayerName = "";
+	int Hour = 0;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Clock")
+	/// <summary>
+	/// current minute
+	/// </summary>
+	int Minute = 0;
 #pragma endregion
 
 #pragma region public UFUNCTION
 	UFUNCTION(BlueprintImplementableEvent)
 	/// <summary>
-	/// update resume visuals
+	/// update clock visuals
 	/// </summary>
-	void UpdateResume();
+	void UpdateClock();
 #pragma endregion
 
 protected:
 #pragma region protected override function
 	/// <summary>
-	/// update stats
+	/// update time
 	/// </summary>
-	virtual void UpdateStats(UPlayerStatsComponent* _pPlayerStats) override;
+	virtual void UpdateTime(AGameModeMain* _pGameModeMain) override;
 #pragma endregion
 };

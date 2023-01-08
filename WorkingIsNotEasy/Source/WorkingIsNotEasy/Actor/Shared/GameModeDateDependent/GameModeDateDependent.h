@@ -6,18 +6,18 @@
 #pragma endregion
 
 #pragma region include project
-#include "PlayerStatsDependent.generated.h"
+#include "GameModeDateDependent.generated.h"
 #pragma endregion
 
 #pragma region forward decleration
-class UPlayerStatsComponent;
+class AGameModeMain;
 #pragma endregion
 
 UCLASS()
 /// <summary>
-/// abstract class has function to update stats in inherit classes
+/// abstract class has function to update date in inherit classes
 /// </summary>
-class WORKINGISNOTEASY_API APlayerStatsDependent : public AActor
+class WORKINGISNOTEASY_API AGameModeDateDependent : public AActor
 {
 	GENERATED_BODY()
 	
@@ -26,13 +26,13 @@ public:
 	/// <summary>
 	/// constructor
 	/// </summary>
-	APlayerStatsDependent() {};
+	AGameModeDateDependent() {};
 #pragma endregion
 
 #pragma region public function
 	/// <summary>
-	/// update stats
+	/// update date
 	/// </summary>
-	virtual void UpdateStats(UPlayerStatsComponent* _pPlayerStats) {};
+	virtual void UpdateDate(AGameModeMain* _pGameModemMain) {};
 #pragma endregion
 };

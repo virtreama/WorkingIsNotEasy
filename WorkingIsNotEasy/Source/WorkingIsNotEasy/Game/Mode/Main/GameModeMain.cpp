@@ -2,6 +2,8 @@
 #include "GameModeMain.h"
 #include "../../Instance/GameInstanceMain.h"
 #include "../../../Character/Player/PlayerPawn.h"
+#include "../../../Actor/Shared/GameModeDateDependent/GameModeDateDependent.h"
+#include "../../../Actor/Shared/GameModeTimeDependent/GameModeTimeDependent.h"
 #pragma endregion
 
 #pragma region include engine
@@ -46,6 +48,21 @@ void AGameModeMain::BeginPlay()
 	// set main game mode reference at main game instance
 	m_pGameInstanceMain->SetGameModeMain(this);
 
+	// get all date dependent actors
+	TArray<AActor*> foundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameModeDateDependent::StaticClass(), foundActors);
+
+	// add all found actors to list
+	for (int i = 0; i < foundActors.Num(); i++)
+		m_dateDependentActors.Add((AGameModeDateDependent*)foundActors[i]);
+
+	// get all time dependent actors
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameModeTimeDependent::StaticClass(), foundActors);
+
+	// add all found actors to list
+	for (int i = 0; i < foundActors.Num(); i++)
+		m_timeDependentActors.Add((AGameModeTimeDependent*)foundActors[i]);
+
 	// get starting time from main game instance
 	GetStartingTime();
 }
@@ -89,6 +106,10 @@ void AGameModeMain::UpdateTime()
 		// update player watch
 		m_pPlayer->UpdateWatch();
 
+		// update all time from time dependent actors
+		for (int i = 0; i < m_timeDependentActors.Num(); i++)
+			m_timeDependentActors[i]->UpdateTime(this);
+
 		// if current minute is 60
 		if (m_minute == 60)
 		{
@@ -130,6 +151,10 @@ void AGameModeMain::UpdateTime()
 					// increase current day by 1
 					m_day++;
 				}
+
+				// update all date from date dependent actors
+				for (int i = 0; i < m_dateDependentActors.Num(); i++)
+					m_dateDependentActors[i]->UpdateDate(this);
 			}
 		}
 	}

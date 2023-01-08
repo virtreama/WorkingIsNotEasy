@@ -28,11 +28,9 @@ void UPlayerStatsComponent::BeginPlay()
 	TArray<AActor*> foundPlayerStatsDependentActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStatsDependent::StaticClass(), foundPlayerStatsDependentActors);
 
-	// add all found actor to list
+	// add all found actors to list
 	for (int i = 0; i < foundPlayerStatsDependentActors.Num(); i++)
-	{
 		m_playerStatsDependentActors.Add((APlayerStatsDependent*)foundPlayerStatsDependentActors[i]);
-	}
 
 	// set name if start name set
 	m_name = string(TCHAR_TO_UTF8(*(StartName.Len() < 17 ? StartName : StartName.Left(16))));

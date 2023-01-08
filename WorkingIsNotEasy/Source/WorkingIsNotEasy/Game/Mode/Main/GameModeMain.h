@@ -12,6 +12,8 @@
 #pragma region forward decleration
 class UGameInstanceMain;
 class APlayerPawn;
+class AGameModeDateDependent;
+class AGameModeTimeDependent;
 #pragma endregion
 
 UCLASS()
@@ -132,6 +134,18 @@ private:
 	/// time counter for increase milliseconds
 	/// </summary>
 	float m_timeCounter = 0.0f;
+#pragma endregion
+
+#pragma region private variable
+	/// <summary>
+	/// actors that are dependent on the game mode main date
+	/// </summary>
+	TArray<AGameModeDateDependent*> m_dateDependentActors;
+
+	/// <summary>
+	/// actors that are dependent on the game mode main time
+	/// </summary>
+	TArray<AGameModeTimeDependent*> m_timeDependentActors;
 #pragma endregion
 
 #pragma region private pointer

@@ -88,15 +88,15 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
 	/// <summary>
-	/// left hand visual skeletal mesh component
+	/// left hand visual static mesh component
 	/// </summary>
-	USkeletalMeshComponent* LeftHand = nullptr;
+	UStaticMeshComponent* LeftHand = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
 	/// <summary>
-	/// right hand visual skeletal mesh component
+	/// right hand visual static mesh component
 	/// </summary>
-	USkeletalMeshComponent* RightHand = nullptr;
+	UStaticMeshComponent* RightHand = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Pawn")
 	/// <summary>

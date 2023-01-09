@@ -52,17 +52,17 @@ APlayerPawn::APlayerPawn()
 	WatchText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("WatchText"));
 	WatchText->SetupAttachment(Watch);
 
-	// create left hand skeletal mesh component and attach to IK
-	LeftHand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LeftHand"));
-	LeftHand->SetupAttachment(IK);
+	// create left hand static mesh component and attach to arms
+	LeftHand = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftHand"));
+	LeftHand->SetupAttachment(Arms);
 
-	// create right hand skeletal mesh component and attach to IK
-	RightHand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("RightHand"));
-	RightHand->SetupAttachment(IK);
+	// create right hand static mesh component and attach to arms
+	RightHand = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RightHand"));
+	RightHand->SetupAttachment(Arms);
 
-	// create wallet static mesh component and attach to right hand
+	// create wallet static mesh component and attach to arms
 	CreditCard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CreditCard"));
-	CreditCard->SetupAttachment(RightHand);
+	CreditCard->SetupAttachment(Arms);
 
 	// create credit card name text render component and attach to credit card
 	CreditCardName = CreateDefaultSubobject<UTextRenderComponent>(TEXT("CreditCardName"));
@@ -224,7 +224,7 @@ void APlayerPawn::BeginPlay()
 	CreditCardMoney->SetVisibility(false);
 
 	// set watch text
-	WatchText->SetText(FText::FromString("00:00:00\nam"));
+	WatchText->SetText(FText::FromString("12:00\nam"));
 }
 #pragma endregion
 

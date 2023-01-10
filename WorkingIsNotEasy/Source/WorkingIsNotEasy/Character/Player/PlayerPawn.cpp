@@ -108,6 +108,7 @@ void APlayerPawn::Tick(float DeltaSeconds)
 	// parent update every frame
 	Super::Tick(DeltaSeconds);
 
+	Move();
 	SetLocationWaistBags();
 	CheckDistanceHandsToWaistBags();
 }
@@ -289,5 +290,24 @@ void APlayerPawn::CheckDistanceHandsToWaistBags()
 			CreditCardMoney->SetVisibility(false);
 		}
 	}
+}
+
+// move player
+void APlayerPawn::Move()
+{
+	// set temp vector to camera location
+	m_tempVector = Camera->GetRelativeLocation();
+	m_tempVector.Z += -164.0f;
+
+	// set player meshes to camera location horizontal
+	IK->SetRelativeLocation(m_tempVector);
+
+	// set temp vector to camera forward horizontal only
+	m_tempVector = Camera->GetForwardVector();
+	m_tempVector.Z = 0.0f;
+	m_tempVector.Normalize();
+
+	// rotate player meshes to camera rotation horizontal
+	IK->SetWorldRotation(m_tempVector.Rotation());
 }
 #pragma endregion

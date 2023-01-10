@@ -225,5 +225,10 @@ private:
 	/// check distance of right and left hand to right and left waist bag
 	/// </summary>
 	void CheckDistanceHandsToWaistBags();
+
+	/// <summary>
+	/// move player
+	/// </summary>
+	void Move();
 #pragma endregion
 };

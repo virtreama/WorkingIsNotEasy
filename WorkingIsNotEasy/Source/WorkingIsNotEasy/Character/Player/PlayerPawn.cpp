@@ -297,17 +297,25 @@ void APlayerPawn::Move()
 {
 	// set temp vector to camera location
 	m_tempVector = Camera->GetRelativeLocation();
-	m_tempVector.Z += -164.0f;
+	m_tempVector.Z += -124.0f;
+
+	m_tempRotator = FRotator::ZeroRotator;
+	m_tempRotator.Yaw = Camera->GetRelativeRotation().Yaw;
+
+	m_tempVector += m_tempRotator.Vector() * (-20.0f);
 
 	// set player meshes to camera location horizontal
 	IK->SetRelativeLocation(m_tempVector);
 
-	// set temp vector to camera forward horizontal only
-	m_tempVector = Camera->GetForwardVector();
-	m_tempVector.Z = 0.0f;
-	m_tempVector.Normalize();
+	// if camera yaw rotation is not more away than 45 degree of IK yaw rotation return
+	if (FMath::Abs(Camera->GetRelativeRotation().Yaw - IK->GetRelativeRotation().Yaw) < 45.0f)
+		return;
+
+	// set temp rotator to camera forward horizontal only but 45 degrees minus or plus
+	m_tempRotator = FRotator::ZeroRotator;
+	m_tempRotator.Yaw = IK->GetRelativeRotation().Yaw > Camera->GetRelativeRotation().Yaw ? Camera->GetRelativeRotation().Yaw + 45.0f : Camera->GetRelativeRotation().Yaw - 45.0f;
 
 	// rotate player meshes to camera rotation horizontal
-	IK->SetWorldRotation(m_tempVector.Rotation());
+	IK->SetWorldRotation(m_tempRotator);
 }
 #pragma endregion

@@ -206,6 +206,11 @@ private:
 	/// temporary vector for calculation etc that it is not allocated every frame
 	/// </summary>
 	FVector m_tempVector = FVector();
+
+	/// <summary>
+	/// temporary rotator for calculation etc that it is not allocated every frame
+	/// </summary>
+	FRotator m_tempRotator = FRotator();
 #pragma endregion
 
 #pragma region private pointer
